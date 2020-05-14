@@ -1,0 +1,7 @@
+parm MD11_nowat.prmtop
+trajin MD11_nowat.nc
+strip !(:9,15,23)
+trajout frameFRAME.pdb pdb onlyframes FRAME
+go
+quit
+
