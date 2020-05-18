@@ -1,23 +1,23 @@
 import mdtraj
 import numpy
 
-# Here is the script to caculate the relative orientations between two spin labels within a system
+# Here is the script to caculate the relative orientations between two spin labels within a system.
 # First, you need to know the atom index of the He, Ne, Ar, Kr and the spin center (Cu2+ in this case) 
 # from the .gori.xyz files from ORCA calculations.
 # 'conda activate' then 'conda activate mdtraj'
 
 def get_vectors(topologyA, topologyB, trajA, trajB):
     # get the index of each atom of the two residues. He, Ne, Ar, Ke are the origin, x, y, and z direction.
-    Cu1_idx = topologyA.atom(70).index
-    He1_idx = topologyA.atom(71).index
-    Ne1_idx = topologyA.atom(72).index
-    Ar1_idx = topologyA.atom(73).index
-    Kr1_idx = topologyA.atom(74).index
-    Cu2_idx = topologyB.atom(70).index
-    He2_idx = topologyB.atom(71).index
-    Ne2_idx = topologyB.atom(72).index
-    Ar2_idx = topologyB.atom(73).index
-    Kr2_idx = topologyB.atom(74).index
+    Cu1_idx = topologyA.atom(0).index
+    He1_idx = topologyA.atom(42).index
+    Ne1_idx = topologyA.atom(43).index
+    Ar1_idx = topologyA.atom(44).index
+    Kr1_idx = topologyA.atom(45).index
+    Cu2_idx = topologyB.atom(0).index
+    He2_idx = topologyB.atom(42).index
+    Ne2_idx = topologyB.atom(43).index
+    Ar2_idx = topologyB.atom(44).index
+    Kr2_idx = topologyB.atom(45).index
 
     # get the coordinates of each atom
     Cu1_coords = trajA.xyz[:,Cu1_idx,:]
@@ -63,12 +63,18 @@ chi1 = []
 chi2 = []
 a = 1
 
-for i in range(1, 10000, 100):
-    trajA = mdtraj.load_xyz("./input/frame"+str(i)+".gori.xyz",top="strip1.pdb")
+# Analyze the g-tensors for the selected frames.
+# Here, we extracted every 1 frame out of 10 frames. 
+# You may select the frames you would analyze.  
+for i in range(1, 11, 1):
+    # Load in xyz files of residue A/B to traj A/B.
+    # Topology file for trajA or trajB should contain the He, Ne, Ar and Kr.
+    # Here we made a pdb file called topo.pdb.
+    trajA = mdtraj.load_xyz("./site1/frame"+str(i)+".gori.xyz",top="topo.pdb")
     print(trajA)
     print("loaded A"+str(i))
     topologyA = trajA.topology
-    trajB = mdtraj.load_xyz("./site2/input/frame"+str(i)+".gori.xyz",top="strip1.pdb")
+    trajB = mdtraj.load_xyz("./site2/frame"+str(i)+".gori.xyz",top="topo.pdb")
     print("loaded B"+str(i))
     topologyB = trajB.topology
     He1_Ne1, He1_Ar1, He1_Kr1, He2_Ne2, He2_Ar2, He2_Kr2, Cu_Cu = get_vectors(topologyA, topologyB, trajA, trajB)
@@ -88,4 +94,5 @@ for i in range(1, 10000, 100):
 final = numpy.stack((parallel,perpendicular1,perpendicular2,chi1,chi2))
 final = (final/numpy.pi)*180
 
-numpy.save("rigid_gtensor_ori_degree.npy", final)
+numpy.save("gtensor_ori_degree.npy", final)
+# Then you may convert the npy file to txt file using convert.py scripts.

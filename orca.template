@@ -1,6 +1,3 @@
-# Calculating g tensors and hyperfine tensors using ORCA.
-# Here, CAM-B3LYP QM method and SV basis set is used for all atoms, except TZVPP basis set used for Cu(II).
-# The QM method and basis set can be changed based on your need. 
 !CAM-B3LYP EPR-II AUTOAUX
 %basis basis  "SV"
 newGTO Cu  "TZVPP"  end
@@ -9,7 +6,7 @@ end
  nprocs 24
 end
 %maxcore 5000
-*xyzfile 0 2 FILE
+*xyzfile -1 2 FILE
 %EPRNMR
      GTENSOR   TRUE
      NUCLEI    = ALL H {AISO, ADIP, AORB}

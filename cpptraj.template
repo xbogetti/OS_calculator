@@ -1,6 +1,6 @@
-parm MD11_nowat.prmtop
-trajin MD11_nowat.nc
-strip !(:9,15,23)
+parm nosolv.prmtop
+trajin 10snapshots.nc
+strip !(:57)
 trajout frameFRAME.pdb pdb onlyframes FRAME
 go
 quit
