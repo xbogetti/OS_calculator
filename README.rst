@@ -3,7 +3,7 @@ OS_calculator
 =============
 This set of scripts helps to calculate g-tensors and relative orientations between two EPR spin labels for selected frames of MD simulations.
 First, run the MD simulation of your system and create a folder containing the topology file and coordinates file.
-The example MD simulation were run using AMBER force field ff14SB, and the newly developed dHis-Cu2+ force field (https://doi-org.pitt.idm.oclc.org/10.1021/acs.jpcb.0c00739)
+The example MD simulation were run using AMBER force field ff14SB, and the newly developed dHis-Cu2+ force field (https://pubs.acs.org/doi/full/10.1021/acs.jpcb.0c00739).
 For information of running MD simulation with AMBER, please refer to https://ambermd.org/
 For extracting relative frames for g-tensor analysis, CPPTRAJ (part of the AmberTools) and ORCA 4.2 (https://sites.google.com/site/orcainputlibrary/home) are used.
 More information about predicting EPR using ORCA, please refer to https://www.orcasoftware.de/tutorials/spec/EPR.html.
